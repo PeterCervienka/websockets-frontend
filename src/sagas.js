@@ -19,13 +19,12 @@ function* startTimer(action) {
 }
 
 function* watchTheSocket() {
-    // return socket and stompClient objects, used for subscription and disconnect callbacks in socketChannel
     const {socket, stompClient} = yield call(createSocketConnection);
     const socketChannel = yield call(createSocketChannel, socket, stompClient);
 
     while (true) {
         const message = yield take(socketChannel);
-        console.log('------------------------ Dispatching timer update ------------------------', yield put(message));
+        yield put(message);
     }
 }
 

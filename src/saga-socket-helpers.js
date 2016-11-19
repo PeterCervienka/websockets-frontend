@@ -6,13 +6,14 @@ import Stomp from "stompjs";
 function createSocketConnection() {
     const socket = new SockJs("http://localhost:9090/websocket");
     const stompClient = Stomp.over(socket);
+    stompClient.debug = null;
     console.log('createSocketConnection client:', stompClient);
     console.log('createSocketConnection socket:', socket);
     return {socket, stompClient};
 }
 
 function createSocketChannel(socket, stompClient) {
-    // returns eventChannel that'll push out(emit) messages from stmopJS client
+    // returns eventChannel that'll push out(emit) messages from stompJS client
     return eventChannel(emit => {
 
         const socketHandler = (event) => {
@@ -23,9 +24,8 @@ function createSocketChannel(socket, stompClient) {
 
         // stompClient's subscribe method uses socketHandler as callback to emit received push messages
         stompClient.connect({}, (frame) => {
-            console.log('Connected callback: ' + frame);
             const subscription = stompClient.subscribe('/topic/timers', (message) => {
-                socketHandler({type: 'RECEIVED_TIMER_UPDATE', payload: message.body});
+                socketHandler({type: 'RECEIVE_TIMER_STATUS', data: JSON.parse(message.body)});
             });
         });
 
@@ -36,7 +36,7 @@ function createSocketChannel(socket, stompClient) {
         const unsubscribe = () => {
             stompClient.disconnect();
             socket.close();
-        }
+        };
 
         return unsubscribe;
     })
