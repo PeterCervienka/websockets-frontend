@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "build": "webpack --debug",
-    "start": "webpack-dev-server --port 3000"
+    "build": "webpack -p --progress --config webpack.config.prod.js",
+    "start": "webpack-dev-server --port 3000",
+    "analyze": "webpack --json | webpack-bundle-size-analyzer"
   },
   "author": "Pavol Rajzak",
   "license": "ISC",
@@ -30,7 +31,9 @@
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
+    "copy-webpack-plugin": "^4.0.1",
     "json-loader": "^0.5.4",
+    "lodash": "^4.17.2",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2",
     "webpack-node-externals": "^1.5.4"

@@ -3,8 +3,10 @@ import { eventChannel } from 'redux-saga';
 import SockJs from "sockjs-client";
 import Stomp from "stompjs";
 
+const hostname = process.env.API_URL;
+
 function createSocketConnection() {
-    const socket = new SockJs("http://localhost:9090/websocket");
+    const socket = new SockJs(hostname + "/websocket");
     const stompClient = Stomp.over(socket);
     stompClient.debug = null;
     console.log('createSocketConnection client:', stompClient);

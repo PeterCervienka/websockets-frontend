@@ -3,7 +3,7 @@ import {takeLatest, takeEvery} from "redux-saga";
 import {createSocketConnection, createSocketChannel} from './saga-socket-helpers';
 
 function* getStartTimerResponse(action) {
-    return yield fetch(`http://localhost:9090/timer/start/${action.name}`)
+    return yield fetch(`${process.env.API_URL}/timer/start/${action.name}`)
         .then((response) => response.json())
 }
 
