@@ -1,20 +1,18 @@
-import {connect} from "react-redux";
-import {startTimer} from "./actions";
-import MainComponent from "./components";
-
-const mapStateToProps = (state) => {
+"use strict";
+/**
+ * Created by peter.cervienka on 29-Nov-16.
+ */
+var react_redux_1 = require("react-redux");
+var Actions = require("./actions");
+var components_1 = require("./components");
+var mapStateToProps = function (state) {
     return {
         timers: state
-    }
+    };
 };
-
-const mapDispatchToProps = (dispatch) => {
+var mapDispatchtoProps = function (dispatch) {
     return {
-        onStartTimer: (event, name) => dispatch(startTimer(name))
-    }
+        onStartTimer: function (event, name) { return dispatch(Actions.startTimer(name)); }
+    };
 };
-
-export const MainContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(MainComponent);
+exports.MainContainer = react_redux_1.connect(mapStateToProps, mapDispatchtoProps)(components_1.default);
